@@ -1,0 +1,22 @@
+.loadScreen {
+  position: fixed;
+  top: 25%;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  overflow: auto;
+  text-align: center;
+}
+
+.pageNotFoundText {
+  color: red;
+  font-size: 30px;
+  font-weight: lighter;
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+.return-to-site {
+  text-decoration: none;
+  color: black;
+}

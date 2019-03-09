@@ -1,0 +1,15 @@
+export const ON_INIT = 'ON_INIT';
+export const ON_EXIT = 'ON_EXIT';
+export const GET_SETTINGS = 'GET_SETTINGS';
+export const GET_INSTANCES = 'GET_INSTANCES';
+export const SET_INSTANCE = 'SET_INSTANCE';
+export const GET_ROLES = 'GET_ROLES';
+export const SAVE_ROLE = 'SAVE_ROLE';
+export const DELETE_ROLE = 'DELETE_ROLE';
+export const GET_LANG = 'GET_LANG';
+export const EDIT_SCREEN = 'EDIT_SCREEN';
+export const DELETE_SCREEN = 'DELETE_SCREEN';
+export const EDIT_VIEW = 'EDIT_VIEW';
+export const DELETE_VIEW = 'DELETE_VIEW';
+export const EDIT_CONTENT = 'EDIT_CONTENT';
+export const SAVE_LANG = 'SAVE_LANG';
