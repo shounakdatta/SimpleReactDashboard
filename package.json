@@ -1,5 +1,5 @@
 {
-  "name": "plexus-360-v8-application-console",
+  "name": "pricetracker-web",
   "version": "0.1.0",
   "private": true,
   "author": "Shounak Datta",
@@ -30,11 +30,12 @@
     "uuid": "^3.3.2"
   },
   "scripts": {
-    "start": "PORT=8080 react-scripts start",
-    "start-pc": "set PORT=8080&& react-scripts start",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "storybook": "start-storybook -p 9009 -s public",
+    "build-storybook": "build-storybook -s public"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -44,5 +45,10 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "@storybook/react": "^5.1.9",
+    "@storybook/addon-actions": "^5.1.9",
+    "@storybook/addon-links": "^5.1.9"
+  }
 }
