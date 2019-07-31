@@ -4,7 +4,12 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { PrivateRoute } from "../../components";
 import * as ROUTES from "../../constants/Routes";
 import "./App.css";
-import { LoginScreen, Home, ManageRoles, ManageLanguages } from "../../pages";
+import {
+  LoginScreen,
+  HomeScreen,
+  ManageRoles,
+  ManageLanguages
+} from "../../pages";
 
 const App = props => {
   return (
@@ -12,7 +17,7 @@ const App = props => {
       <Switch>
         <PrivateRoute exact path={ROUTES.ROOT} component={LoginScreen} />
         <Route exact path={ROUTES.LOGIN} component={LoginScreen} />
-        <PrivateRoute exact path={ROUTES.HOME} component={Home} />
+        <PrivateRoute exact path={ROUTES.HOME} component={HomeScreen} />
         <PrivateRoute
           exact
           path={ROUTES.MANAGE_ROLES}

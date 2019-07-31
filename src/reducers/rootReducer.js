@@ -1,8 +1,6 @@
-import { combineReducers } from 'redux';
-import { default as initReducer } from './InitReducer';
-import { default as instanceReducer } from './InstanceReducer';
+import { combineReducers } from "redux";
+import { default as initReducer } from "./InitReducer";
 
 export default combineReducers({
-  UserStore: initReducer,
-  InstanceStore: instanceReducer,
+  UserStore: initReducer
 });
