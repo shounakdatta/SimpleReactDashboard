@@ -4,12 +4,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { PrivateRoute } from "../../components";
 import * as ROUTES from "../../constants/Routes";
 import "./App.css";
-import {
-  LoginScreen,
-  HomeScreen,
-  ManageRoles,
-  ManageLanguages
-} from "../../pages";
+import { LoginScreen, HomeScreen } from "../../pages";
 
 const App = props => {
   return (
@@ -18,17 +13,6 @@ const App = props => {
         <PrivateRoute exact path={ROUTES.ROOT} component={LoginScreen} />
         <Route exact path={ROUTES.LOGIN} component={LoginScreen} />
         <PrivateRoute exact path={ROUTES.HOME} component={HomeScreen} />
-        <PrivateRoute
-          exact
-          path={ROUTES.MANAGE_ROLES}
-          component={ManageRoles}
-        />
-        <PrivateRoute
-          exact
-          path={ROUTES.MANAGE_LANGUAGES}
-          component={ManageLanguages}
-          onChange={() => console.log("Wait")}
-        />
       </Switch>
     </Router>
   );

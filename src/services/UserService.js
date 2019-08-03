@@ -1,23 +1,9 @@
-import { getDataFromResponse, post } from './ApiRequests';
+import firebase from "../config/Fire";
 
-export function validateUser(userObj) {
-  const data = JSON.stringify({ userObj });
-  const path = 'applicationManager.cfc?method=validateUser';
-  return post(path, data).then(getDataFromResponse);
-}
-
-export function getSettings() {
-  const path = 'applicationManager.cfc?method=getSettings';
-  return post(path).then(getDataFromResponse);
-}
-
-export function getInstances() {
-  const path = 'applicationManager.cfc?method=getInstances';
-  return post(path).then(getDataFromResponse);
-}
-
-export function setInstance(instanceObj) {
-  const data = JSON.stringify({ instanceObj });
-  const path = 'applicationManager.cfc?method=setInstance';
-  return post(path, data).then(getDataFromResponse);
+export function loginUser(userObj) {
+  const { email, password } = userObj;
+  return firebase
+    .auth()
+    .signInWithEmailAndPassword(email, password)
+    .catch(({ code, message }) => ({ errorCode: code, message }));
 }

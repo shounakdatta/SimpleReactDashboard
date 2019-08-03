@@ -36,17 +36,19 @@ class Login extends Component {
   handleSubmit(e) {
     e.preventDefault();
     const { username, password } = this.state;
-    this.props.onLogin({ username, password }).then(({ status, message }) => {
-      if (parseInt(status) !== 0) {
-        this.setState({
-          errorMessage: message
-        });
-      } else {
-        this.setState({
-          login: true
-        });
-      }
-    });
+    this.props
+      .onLogin({ email: username, password })
+      .then(({ status, message }) => {
+        if (parseInt(status) !== 0) {
+          this.setState({
+            errorMessage: message
+          });
+        } else {
+          this.setState({
+            login: true
+          });
+        }
+      });
   }
 
   render() {

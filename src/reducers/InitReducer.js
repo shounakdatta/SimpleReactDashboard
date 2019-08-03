@@ -1,19 +1,11 @@
-import _ from 'lodash';
-import { fromJS } from 'immutable';
-import {
-  ON_INIT,
-  ON_EXIT,
-  GET_SETTINGS,
-  GET_INSTANCES,
-  SET_INSTANCE,
-} from '../constants/ActionTypes';
+import _ from "lodash";
+import { fromJS } from "immutable";
+import { ON_INIT, ON_EXIT } from "../constants/ActionTypes";
+import { LOGGED_OUT, LOGGED_IN } from "../constants/Status";
 
 const initialState = fromJS({
-    userObj: {},
-    status: 0,
-    settings: [],
-    instances: [],
-    currentInstance: {},
+  userObj: {},
+  status: LOGGED_OUT
 });
 
 export default (state = initialState, action) => {
@@ -21,22 +13,37 @@ export default (state = initialState, action) => {
 
   switch (action.type) {
     case ON_INIT:
-      newState = newState.set('userObj', _.get(action, 'payload', {}));
-      newState = newState.set('status', 0);
+      const {
+        displayName,
+        email,
+        emailVerified,
+        metadata,
+        phoneNumber,
+        photoURL,
+        uid: id
+      } = _.get(action, "payload", {});
+      newState = newState.set(
+        "userObj",
+        _.get(
+          action,
+          {
+            displayName,
+            email,
+            emailVerified,
+            metadata,
+            phoneNumber,
+            photoURL,
+            id
+          },
+          {}
+        )
+      );
+      newState = newState.set("status", LOGGED_IN);
       return newState;
     case ON_EXIT:
       newState = initialState;
       return newState;
-    case GET_SETTINGS:
-      newState = newState.set('settings', _.get(action, 'payload', {}));
-      return newState;
-    case GET_INSTANCES:
-      newState = newState.set('instances', _.get(action, 'payload', {}));
-      return newState;
-    case SET_INSTANCE:
-      newState = newState.set('currentInstance', _.get(action, 'payload', {}));
-      return newState;
     default:
       return state;
   }
-}
+};
