@@ -38,10 +38,9 @@ class Home extends Component {
 
   render() {
     const { snackbarOpen, snackbarText } = this.state;
-    const { classes } = this.props;
 
     return (
-      <PageWrapper>
+      <PageWrapper pageHeader="Home">
         <Snackbar
           snackbarOpen={snackbarOpen}
           message={snackbarText}

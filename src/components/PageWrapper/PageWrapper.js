@@ -1,40 +1,40 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Hidden from '@material-ui/core/Hidden';
-import { Navigator, Header } from '../../components';
-import GetTheme from '../../theme';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { withStyles } from "@material-ui/core/styles";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import Hidden from "@material-ui/core/Hidden";
+import { Navigator, Header } from "../../components";
+import GetTheme from "../../theme";
 
 const theme = GetTheme();
 const drawerWidth = 256;
 
 const styles = () => ({
   root: {
-    display: 'flex',
-    minHeight: '100vh',
+    display: "flex",
+    minHeight: "100vh"
   },
   drawer: {
-    [theme.breakpoints.up('sm')]: {
+    [theme.breakpoints.up("sm")]: {
       width: drawerWidth,
-      flexShrink: 0,
-    },
+      flexShrink: 0
+    }
   },
   appContent: {
     flex: 1,
-    display: 'flex',
-    flexDirection: 'column',
+    display: "flex",
+    flexDirection: "column"
   },
   mainContent: {
     flex: 1,
-    padding: '48px 36px 0',
-    background: '#eaeff1',
-  },
+    padding: "48px 36px 0",
+    background: "#eaeff1"
+  }
 });
 
 class PageWrapper extends Component {
   state = {
-    mobileOpen: false,
+    mobileOpen: false
   };
 
   handleDrawerToggle = () => {
@@ -42,7 +42,7 @@ class PageWrapper extends Component {
   };
 
   render() {
-    const { classes, children } = this.props;
+    const { classes, children, pageHeader } = this.props;
     return (
       <div className={classes.root}>
         <CssBaseline />
@@ -60,10 +60,11 @@ class PageWrapper extends Component {
           </Hidden>
         </nav>
         <div className={classes.appContent}>
-          <Header onDrawerToggle={this.handleDrawerToggle} />
-          <main className={classes.mainContent}>
-            {children}
-          </main>
+          <Header
+            onDrawerToggle={this.handleDrawerToggle}
+            pageHeader={pageHeader}
+          />
+          <main className={classes.mainContent}>{children}</main>
         </div>
       </div>
     );
@@ -72,6 +73,7 @@ class PageWrapper extends Component {
 
 PageWrapper.propTypes = {
   classes: PropTypes.object.isRequired,
+  pageHeader: PropTypes.string
 };
 
 export default withStyles(styles)(PageWrapper);

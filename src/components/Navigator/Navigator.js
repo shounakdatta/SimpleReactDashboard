@@ -7,20 +7,17 @@ import classNames from "classnames";
 import { withStyles } from "@material-ui/core/styles";
 import Divider from "@material-ui/core/Divider";
 import Drawer from "@material-ui/core/Drawer";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
+import ListView from "@material-ui/core/List";
+import {
+  Home as HomeIcon,
+  Dashboard as DashboardIcon,
+  List as ListIcon,
+  Input as InputIcon,
+  Description as DescriptionIcon
+} from "@material-ui/icons"
+import ListItemView from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import HomeIcon from "@material-ui/icons/Home";
-import PeopleIcon from "@material-ui/icons/People";
-import PhonelinkSetupIcon from "@material-ui/icons/PhonelinkSetup";
-import PersonIcon from "@material-ui/icons/Person";
-import LanguageIcon from "@material-ui/icons/Language";
-import TranslateIcon from "@material-ui/icons/Translate";
-import AccountIcon from "@material-ui/icons/AccountCircle";
-import AssignmentIcon from "@material-ui/icons/Assignment";
-import EmailIcon from "@material-ui/icons/Email";
-import logo from "../../assets/plexus_logo.png";
 import * as ROUTES from "../../constants/Routes";
 import { logout } from "../../actions/UserActions";
 import { styles } from "./NavigatorStyles";
@@ -36,21 +33,17 @@ class Navigator extends Component {
       redirect: null,
       categories: [
         {
-          id: "Develop",
+          id: "Manage",
           children: [
-            { id: "Authentication", icon: <PeopleIcon />, active: true },
-            { id: "Database", icon: <PersonIcon /> },
-            { id: "Storage", icon: <LanguageIcon /> },
-            { id: "Hosting", icon: <TranslateIcon /> },
-            { id: "Functions", icon: <AccountIcon /> },
-            { id: "ML Kit", icon: <AssignmentIcon /> }
+            { id: "Home", icon: <DashboardIcon />, active: true },
+            { id: "Inventory", icon: <ListIcon /> },
           ]
         },
         {
-          id: "Quality",
+          id: "Admin",
           children: [
-            { id: "Analytics", icon: <EmailIcon /> },
-            { id: "Test Lab", icon: <PhonelinkSetupIcon /> }
+            { id: "Docs", icon: <DescriptionIcon /> },
+            { id: "Logout", icon: <InputIcon /> }
           ]
         }
       ]
@@ -83,8 +76,8 @@ class Navigator extends Component {
     return (
       <Fragment>
         <Drawer variant="permanent" {...other}>
-          <List component="nav" disablePadding>
-            <ListItem
+          <ListView component="nav" disablePadding>
+            <ListItemView
               className={classNames(
                 classes.firebase,
                 classes.item,
@@ -98,13 +91,11 @@ class Navigator extends Component {
                   style={{ width: "100%" }}
                 />
               </div>
-            </ListItem>
-            <ListItem
+            </ListItemView>
+            <ListItemView
               className={classNames(classes.item, classes.itemCategory)}
             >
-              <ListItemIcon>
-                <HomeIcon />
-              </ListItemIcon>
+              <ListItemIcon><HomeIcon /></ListItemIcon>
               <ListItemText
                 classes={{
                   primary: classes.itemPrimary
@@ -112,10 +103,10 @@ class Navigator extends Component {
               >
                 Dashboard
               </ListItemText>
-            </ListItem>
+            </ListItemView>
             {categories.map(({ id, children }) => (
               <React.Fragment key={id}>
-                <ListItem className={classes.categoryHeader}>
+                <ListItemView className={classes.categoryHeader}>
                   <ListItemText
                     classes={{
                       primary: classes.categoryHeaderPrimary
@@ -123,9 +114,9 @@ class Navigator extends Component {
                   >
                     {id}
                   </ListItemText>
-                </ListItem>
+                </ListItemView>
                 {children.map(({ id: childId, icon, active }) => (
-                  <ListItem
+                  <ListItemView
                     key={childId}
                     button
                     className={active ? classes.itemActiveItem : classes.item}
@@ -140,12 +131,12 @@ class Navigator extends Component {
                     >
                       {childId}
                     </ListItemText>
-                  </ListItem>
+                  </ListItemView>
                 ))}
                 <Divider className={classes.divider} />
               </React.Fragment>
             ))}
-          </List>
+          </ListView>
         </Drawer>
       </Fragment>
     );

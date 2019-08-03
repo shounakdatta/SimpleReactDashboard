@@ -1,52 +1,64 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import AppBar from '@material-ui/core/AppBar';
-import Grid from '@material-ui/core/Grid';
-import HelpIcon from '@material-ui/icons/Help';
-import Hidden from '@material-ui/core/Hidden';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-import Toolbar from '@material-ui/core/Toolbar';
-import Tooltip from '@material-ui/core/Tooltip';
-import { withStyles } from '@material-ui/core/styles';
+import React from "react";
+import PropTypes from "prop-types";
+import {
+  Typography,
+  AppBar,
+  Grid,
+  Hidden,
+  IconButton,
+  Toolbar,
+  Tooltip
+} from "@material-ui/core";
+import { Help as HelpIcon, Menu as MenuIcon } from "@material-ui/icons";
+import { withStyles } from "@material-ui/core/styles";
 
-const lightColor = 'rgba(255, 255, 255, 0.7)';
+const lightColor = "rgba(255, 255, 255, 0.7)";
 
 const styles = theme => ({
   root: {
-    padding: 10,
+    padding: 10
   },
   secondaryBar: {
-    zIndex: 0,
+    zIndex: 0
   },
   menuButton: {
-    marginLeft: -theme.spacing.unit,
+    marginLeft: -theme.spacing.unit
   },
   iconButtonAvatar: {
-    padding: 4,
+    padding: 4
   },
   link: {
-    textDecoration: 'none',
+    textDecoration: "none",
     color: lightColor,
-    '&:hover': {
-      color: theme.palette.common.white,
-    },
+    "&:hover": {
+      color: theme.palette.common.white
+    }
   },
   button: {
-    borderColor: lightColor,
-  },
+    borderColor: lightColor
+  }
 });
 
 function Header(props) {
-  const { classes, onDrawerToggle, userStore } = props;
-  const currentInstance = userStore.get('currentInstance');
+  const { classes, onDrawerToggle, pageHeader } = props;
 
   return (
     <React.Fragment>
-      <AppBar classes={{ root: classes.root }} color="primary" position="sticky" elevation={0}>
+      <AppBar
+        classes={{ root: classes.root }}
+        color="primary"
+        position="sticky"
+        elevation={0}
+      >
         <Toolbar>
           <Grid container spacing={8} alignItems="center">
+            <Grid item xs>
+              {!!pageHeader && (
+                <Typography color="inherit" variant="h5" component="h1">
+                  {pageHeader}
+                </Typography>
+              )}
+            </Grid>
             <Hidden smUp>
               <Grid item>
                 <IconButton
@@ -60,13 +72,6 @@ function Header(props) {
               </Grid>
             </Hidden>
             <Grid item xs />
-            { currentInstance && currentInstance.company &&
-              <Grid item>
-                <p style={{ fontFamily: "'Roboto', sans-serif", margin: 0 }}>
-                  <b>Instance: {currentInstance.company}</b>
-                </p>
-              </Grid>
-            }
             <Grid item>
               <Tooltip title="Help">
                 <IconButton color="inherit">
@@ -84,12 +89,7 @@ function Header(props) {
 Header.propTypes = {
   classes: PropTypes.object.isRequired,
   onDrawerToggle: PropTypes.func.isRequired,
+  pageHeader: PropTypes.string
 };
 
-function mapStateToProps(state) {
-  return {
-    userStore: state.UserStore
-  };
-}
-
-export default withStyles(styles)(connect(mapStateToProps)(Header));
+export default withStyles(styles)(Header);
