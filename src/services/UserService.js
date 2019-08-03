@@ -7,3 +7,7 @@ export function loginUser(userObj) {
     .signInWithEmailAndPassword(email, password)
     .catch(({ code, message }) => ({ errorCode: code, message }));
 }
+
+export function validateUser() {
+  return firebase.auth().onAuthStateChanged();
+}

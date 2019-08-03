@@ -38,14 +38,14 @@ class Login extends Component {
     const { username, password } = this.state;
     this.props
       .onLogin({ email: username, password })
-      .then(({ status, message }) => {
-        if (parseInt(status) !== 0) {
+      .then(({ user, message }) => {
+        if (user) {
           this.setState({
-            errorMessage: message
+            login: true
           });
         } else {
           this.setState({
-            login: true
+            errorMessage: message
           });
         }
       });

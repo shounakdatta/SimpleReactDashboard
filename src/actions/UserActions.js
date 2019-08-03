@@ -1,4 +1,4 @@
-import { ON_INIT, ON_EXIT } from "../constants/ActionTypes";
+import { ON_INIT, ON_EXIT, ON_VALIDATE } from "../constants/ActionTypes";
 import * as UserService from "../services/UserService";
 
 export const login = userObj => dispatch => {
@@ -7,6 +7,22 @@ export const login = userObj => dispatch => {
       .then(response => {
         dispatch({
           type: ON_INIT,
+          payload: response.user
+        });
+        resolve(response);
+      })
+      .catch(error => {
+        reject(error);
+      });
+  });
+};
+
+export const validateUser = () => dispatch => {
+  return new Promise((resolve, reject) => {
+    UserService.validateUser()
+      .then(response => {
+        dispatch({
+          type: ON_VALIDATE,
           payload: response.user
         });
         resolve(response);
