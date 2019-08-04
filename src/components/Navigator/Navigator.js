@@ -14,13 +14,14 @@ import {
   List as ListIcon,
   Input as InputIcon,
   Description as DescriptionIcon
-} from "@material-ui/icons"
+} from "@material-ui/icons";
 import ListItemView from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import * as ROUTES from "../../constants/Routes";
 import { logout } from "../../actions/UserActions";
 import { styles } from "./NavigatorStyles";
+import Modal from "../../components/ConfirmationModal/ConfirmationModal";
 
 const LOGO_URL =
   "https://www.autojobs.com/wp-content/themes/autojobs/img/placeholders/company-logo-placeholder.png";
@@ -31,19 +32,33 @@ class Navigator extends Component {
 
     this.state = {
       redirect: null,
+      modalVisible: false,
+      modalTitle: undefined,
+      modalText: undefined,
+      modalSubmit: this.closeModal,
       categories: [
         {
           id: "Manage",
           children: [
             { id: "Home", icon: <DashboardIcon />, active: true },
-            { id: "Inventory", icon: <ListIcon /> },
+            { id: "Inventory", icon: <ListIcon /> }
           ]
         },
         {
           id: "Admin",
           children: [
             { id: "Docs", icon: <DescriptionIcon /> },
-            { id: "Logout", icon: <InputIcon /> }
+            {
+              id: "Logout",
+              icon: <InputIcon />,
+              onClick: () =>
+                this.setState({
+                  modalVisible: true,
+                  modalTitle: "Logout",
+                  modalText: "Are you sure you want to leave PriceTracker?",
+                  modalSubmit: this.handleLogOutSubmit
+                })
+            }
           ]
         }
       ]
@@ -56,7 +71,7 @@ class Navigator extends Component {
       .then(() => this.setState({ redirect: "LOGIN" }));
   }
 
-  handleRouting(route, id) {
+  handleRouting(route) {
     const { pathname } = window.location;
     if (route && ROUTES[route] && ROUTES[route] !== pathname) {
       this.setState({
@@ -65,9 +80,19 @@ class Navigator extends Component {
     }
   }
 
+  openModal = () => this.setState({});
+  closeModal = () => this.setState({ modalVisible: false });
+
   render() {
     const { classes, userStore, ...other } = this.props;
-    const { redirect, categories } = this.state;
+    const {
+      redirect,
+      categories,
+      modalVisible,
+      modalTitle,
+      modalText,
+      modalSubmit
+    } = this.state;
 
     if (redirect) {
       return <Redirect push to={ROUTES[redirect]} />;
@@ -95,7 +120,9 @@ class Navigator extends Component {
             <ListItemView
               className={classNames(classes.item, classes.itemCategory)}
             >
-              <ListItemIcon><HomeIcon /></ListItemIcon>
+              <ListItemIcon>
+                <HomeIcon />
+              </ListItemIcon>
               <ListItemText
                 classes={{
                   primary: classes.itemPrimary
@@ -115,29 +142,49 @@ class Navigator extends Component {
                     {id}
                   </ListItemText>
                 </ListItemView>
-                {children.map(({ id: childId, icon, active }) => (
-                  <ListItemView
-                    key={childId}
-                    button
-                    className={active ? classes.itemActiveItem : classes.item}
-                  >
-                    <ListItemIcon className={classes.itemIcon}>
-                      {icon}
-                    </ListItemIcon>
-                    <ListItemText
-                      classes={{
-                        primary: classes.itemPrimary
-                      }}
-                    >
-                      {childId}
-                    </ListItemText>
-                  </ListItemView>
-                ))}
+                {children.map(
+                  ({ id: childId, icon, active, route, onClick }) => {
+                    if (!onClick && route)
+                      onClick = () => this.setState({ redirect: route });
+                    else if (!onClick && !route)
+                      onClick = () => {
+                        return;
+                      };
+                    return (
+                      <ListItemView
+                        key={childId}
+                        button
+                        className={
+                          active ? classes.itemActiveItem : classes.item
+                        }
+                        onClick={onClick}
+                      >
+                        <ListItemIcon className={classes.itemIcon}>
+                          {icon}
+                        </ListItemIcon>
+                        <ListItemText
+                          classes={{
+                            primary: classes.itemPrimary
+                          }}
+                        >
+                          {childId}
+                        </ListItemText>
+                      </ListItemView>
+                    );
+                  }
+                )}
                 <Divider className={classes.divider} />
               </React.Fragment>
             ))}
           </ListView>
         </Drawer>
+        <Modal
+          open={modalVisible}
+          title={modalTitle}
+          message={modalText}
+          handleSubmit={modalSubmit.bind(this)}
+          handleClose={this.closeModal}
+        />
       </Fragment>
     );
   }

@@ -1,13 +1,12 @@
-import React from "react";
+import React, { Component } from "react";
 import { connect } from "react-redux";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { Component } from "react";
 import { PrivateRoute } from "../../components";
 import * as ROUTES from "../../constants/Routes";
 import "./App.css";
 import { LoginScreen, HomeScreen } from "../../pages";
 import { validateUser } from "../../actions/UserActions";
-import { bindActionCreators } from "../../../../../../AppData/Local/Microsoft/TypeScript/3.5/node_modules/redux";
+import { bindActionCreators } from "redux";
 
 class App extends Component {
   constructor(props) {

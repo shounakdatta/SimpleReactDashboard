@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -44,29 +44,31 @@ class PageWrapper extends Component {
   render() {
     const { classes, children, pageHeader } = this.props;
     return (
-      <div className={classes.root}>
-        <CssBaseline />
-        <nav className={classes.drawer}>
-          <Hidden smUp implementation="js">
-            <Navigator
-              PaperProps={{ style: { width: drawerWidth } }}
-              variant="temporary"
-              open={this.state.mobileOpen}
-              onClose={this.handleDrawerToggle}
+      <Fragment>
+        <div className={classes.root}>
+          <CssBaseline />
+          <nav className={classes.drawer}>
+            <Hidden smUp implementation="js">
+              <Navigator
+                PaperProps={{ style: { width: drawerWidth } }}
+                variant="temporary"
+                open={this.state.mobileOpen}
+                onClose={this.handleDrawerToggle}
+              />
+            </Hidden>
+            <Hidden xsDown implementation="css">
+              <Navigator PaperProps={{ style: { width: drawerWidth } }} />
+            </Hidden>
+          </nav>
+          <div className={classes.appContent}>
+            <Header
+              onDrawerToggle={this.handleDrawerToggle}
+              pageHeader={pageHeader}
             />
-          </Hidden>
-          <Hidden xsDown implementation="css">
-            <Navigator PaperProps={{ style: { width: drawerWidth } }} />
-          </Hidden>
-        </nav>
-        <div className={classes.appContent}>
-          <Header
-            onDrawerToggle={this.handleDrawerToggle}
-            pageHeader={pageHeader}
-          />
-          <main className={classes.mainContent}>{children}</main>
+            <main className={classes.mainContent}>{children}</main>
+          </div>
         </div>
-      </div>
+      </Fragment>
     );
   }
 }
