@@ -5,8 +5,6 @@ import { PrivateRoute } from "../../components";
 import * as ROUTES from "../../constants/Routes";
 import "./App.css";
 import { LoginScreen, HomeScreen } from "../../pages";
-import { validateUser } from "../../actions/UserActions";
-import { bindActionCreators } from "redux";
 
 class App extends Component {
   constructor(props) {
@@ -32,17 +30,6 @@ class App extends Component {
 function mapStateToProps(state) {
   return {
     UserStore: state.UserStore
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: bindActionCreators(
-      {
-        validateUser
-      },
-      dispatch
-    )
   };
 }
 

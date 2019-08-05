@@ -36,6 +36,7 @@ class Navigator extends Component {
       modalTitle: undefined,
       modalText: undefined,
       modalSubmit: this.closeModal,
+      modalSubmitText: undefined,
       categories: [
         {
           id: "Manage",
@@ -56,7 +57,8 @@ class Navigator extends Component {
                   modalVisible: true,
                   modalTitle: "Logout",
                   modalText: "Are you sure you want to leave PriceTracker?",
-                  modalSubmit: this.handleLogOutSubmit
+                  modalSubmit: this.handleLogOutSubmit,
+                  modalSubmitText: "Logout"
                 })
             }
           ]
@@ -91,7 +93,8 @@ class Navigator extends Component {
       modalVisible,
       modalTitle,
       modalText,
-      modalSubmit
+      modalSubmit,
+      modalSubmitText
     } = this.state;
 
     if (redirect) {
@@ -182,6 +185,7 @@ class Navigator extends Component {
           open={modalVisible}
           title={modalTitle}
           message={modalText}
+          submitText={modalSubmitText}
           handleSubmit={modalSubmit.bind(this)}
           handleClose={this.closeModal}
         />
