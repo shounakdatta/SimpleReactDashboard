@@ -35,9 +35,13 @@ export const validateUser = () => dispatch => {
 
 export const logout = () => dispatch => {
   return new Promise((resolve, reject) => {
-    dispatch({
-      type: ON_EXIT
-    });
-    resolve();
+    UserService.logoutUser()
+      .then(() => {
+        dispatch({
+          type: ON_EXIT
+        });
+        resolve();
+      })
+      .catch(error => reject(error));
   });
 };

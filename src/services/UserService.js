@@ -9,5 +9,18 @@ export function loginUser(userObj) {
 }
 
 export function validateUser() {
-  return firebase.auth().onAuthStateChanged();
+  return new Promise((resolve, reject) => {
+    const unsubscribe = firebase.auth().onAuthStateChanged(user => {
+      unsubscribe();
+      if (user) resolve(user);
+      else reject("User is not logged in or has timed out");
+    });
+  });
+}
+
+export function logoutUser() {
+  return firebase
+    .auth()
+    .signOut()
+    .catch(({ code, message }) => ({ errorCode: code, message }));
 }
