@@ -1,6 +1,11 @@
 import _ from "lodash";
 import { fromJS } from "immutable";
-import { ON_INIT, ON_EXIT } from "../constants/ActionTypes";
+import {
+  ON_INIT,
+  ON_EXIT,
+  ON_VALIDATE,
+  ON_CREATE_USER
+} from "../constants/ActionTypes";
 import { LOGGED_OUT, LOGGED_IN } from "../constants/Status";
 
 const initialState = fromJS({
@@ -10,40 +15,33 @@ const initialState = fromJS({
 
 export default (state = initialState, action) => {
   let newState = state;
+  const { type } = action;
 
-  switch (action.type) {
-    case ON_INIT:
-      const {
-        displayName,
-        email,
-        emailVerified,
-        metadata,
-        phoneNumber,
-        photoURL,
-        uid: id
-      } = _.get(action, "payload", {});
-      newState = newState.set(
-        "userObj",
-        _.get(
-          action,
-          {
-            displayName,
-            email,
-            emailVerified,
-            metadata,
-            phoneNumber,
-            photoURL,
-            id
-          },
-          {}
-        )
-      );
-      newState = newState.set("status", LOGGED_IN);
-      return newState;
-    case ON_EXIT:
-      newState = initialState;
-      return newState;
-    default:
-      return state;
+  if (type === ON_INIT || type === ON_VALIDATE || type === ON_CREATE_USER) {
+    const {
+      displayName,
+      email,
+      emailVerified,
+      metadata,
+      phoneNumber,
+      photoURL,
+      uid: id
+    } = _.get(action, "payload", {});
+    newState = newState.set("userObj", {
+      displayName,
+      email,
+      emailVerified,
+      metadata,
+      phoneNumber,
+      photoURL,
+      uid: id
+    });
+    newState = newState.set("status", LOGGED_IN);
+    return newState;
+  } else if (type === ON_EXIT) {
+    newState = initialState;
+    return newState;
+  } else {
+    return state;
   }
 };

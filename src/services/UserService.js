@@ -24,3 +24,22 @@ export function logoutUser() {
     .signOut()
     .catch(({ code, message }) => ({ errorCode: code, message }));
 }
+
+export function createUser(userObj) {
+  const { email, password } = userObj;
+  return firebase
+    .auth()
+    .createUserWithEmailAndPassword(email, password)
+    .catch(({ code, message }) => ({ errorCode: code, message }));
+}
+
+export function updateUser(userObj) {
+  return firebase
+    .auth()
+    .currentUser.updateProfile(userObj)
+    .catch(({ code, message }) => ({ errorCode: code, message }));
+}
+
+export function getUser() {
+  return firebase.auth().currentUser;
+}

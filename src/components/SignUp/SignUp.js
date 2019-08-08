@@ -1,9 +1,11 @@
 import React, { Component } from "react";
+import { Redirect } from "react-router";
 import { Link } from "react-router-dom";
 import {
   Avatar,
   Button,
   FormControl,
+  FormHelperText,
   Input,
   InputLabel,
   Grid,
@@ -19,30 +21,45 @@ class SignUp extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      firstName: "",
-      lastName: "",
-      email: "",
-      password: ""
+      firstName: null,
+      lastName: null,
+      email: null,
+      password: null,
+      login: false,
+      errorMessage: null
     };
   }
 
   setField(e, field) {
-    this.setState({ [field]: e.target.value });
+    this.setState({ [field]: e.target.value, errorMessage: null });
   }
 
   handleSubmit(e) {
-    const { firstName, lastName, email, password } = this.state;
     e.preventDefault();
-    const user = {
-      displayName: `${firstName} ${lastName}`,
-      email,
-      password
-    };
-    console.log(user);
+    const { firstName, lastName, email, password } = this.state;
+    this.props
+      .onSignUp({ displayName: `${firstName} ${lastName}`, email, password })
+      .then(({ user, message }) => {
+        if (user) {
+          this.setState({
+            login: true
+          });
+        } else {
+          this.setState({
+            errorMessage: message
+          });
+        }
+      });
   }
 
   render() {
     const { classes } = this.props;
+    const { errorMessage, login } = this.state;
+
+    if (login) {
+      return <Redirect push to="/home" />;
+    }
+
     return (
       <main className={classes.main}>
         <Paper className={classes.paper}>
@@ -97,7 +114,7 @@ class SignUp extends Component {
                     id="password"
                     onChange={e => this.setField(e, "password")}
                   />
-                  {/* <FormHelperText error={true}>{errorMessage}</FormHelperText> */}
+                  <FormHelperText error={true}>{errorMessage}</FormHelperText>
                 </FormControl>
               </Grid>
             </Grid>
@@ -108,7 +125,7 @@ class SignUp extends Component {
               color="primary"
               className={classes.submit}
             >
-              Sign Up
+              SIGN UP
             </Button>
             <div className={classes.secondaryTextContainer}>
               <Typography variant="body2" className={classes.secondaryText}>
@@ -125,7 +142,8 @@ class SignUp extends Component {
 }
 
 SignUp.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  onSignUp: PropTypes.func.isRequired
 };
 
 export default withStyles(styles)(SignUp);
