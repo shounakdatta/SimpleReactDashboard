@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { PrivateRoute } from "../../components";
 import * as ROUTES from "../../constants/Routes";
 import "./App.css";
-import { LoginScreen, HomeScreen } from "../../pages";
+import { LoginScreen, HomeScreen, SignUpScreen } from "../../pages";
 
 class App extends Component {
   constructor(props) {
@@ -20,6 +20,7 @@ class App extends Component {
         <Switch>
           <PrivateRoute exact path={ROUTES.ROOT} component={HomeScreen} />
           <Route exact path={ROUTES.LOGIN} component={LoginScreen} />
+          <Route exact path={ROUTES.SIGNUP} component={SignUpScreen} />
           <PrivateRoute exact path={ROUTES.HOME} component={HomeScreen} />
         </Switch>
       </Router>

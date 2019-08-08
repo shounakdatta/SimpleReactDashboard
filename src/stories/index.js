@@ -3,7 +3,7 @@ import { storiesOf } from "@storybook/react";
 import { linkTo } from "@storybook/addon-links";
 import { Welcome } from "@storybook/react/demo";
 import Store from "./store";
-import { LoginScreen, HomeScreen } from "../pages";
+import { LoginScreen, HomeScreen, SignUpScreen } from "../pages";
 import { PageWrapper } from "../components";
 
 storiesOf("Welcome", module).add("to Storybook", () => (
@@ -12,7 +12,8 @@ storiesOf("Welcome", module).add("to Storybook", () => (
 
 storiesOf("Login", module)
   .addDecorator(Store)
-  .add("Login Screen", () => <LoginScreen />);
+  .add("Login Screen", () => <LoginScreen />)
+  .add("Sign Up", () => <SignUpScreen />);
 
 storiesOf("Home", module)
   .addDecorator(Store)

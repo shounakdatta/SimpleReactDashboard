@@ -1,4 +1,5 @@
 export { default as Login } from "./Login/Login";
+export { default as SignUp } from "./SignUp/SignUp";
 export { default as PageWrapper } from "./PageWrapper/PageWrapper";
 export { default as Header } from "./Header/Header";
 export { default as Navigator } from "./Navigator/Navigator";

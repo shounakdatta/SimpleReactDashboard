@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router";
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
@@ -18,9 +19,9 @@ class Login extends Component {
     super();
 
     this.state = {
-      username: "",
-      password: "",
-      errorMessage: "",
+      username: null,
+      password: null,
+      errorMessage: null,
       login: false
     };
   }
@@ -64,7 +65,7 @@ class Login extends Component {
           <Avatar className={classes.avatar}>
             <LockOutlinedIcon />
           </Avatar>
-          <Typography variant="h6" className={classes.headerText}>
+          <Typography variant="h5" className={classes.headerText}>
             Sign In
           </Typography>
           <form
@@ -77,7 +78,6 @@ class Login extends Component {
                 id="email"
                 name="email"
                 onChange={e => this.setUsername(e)}
-                autoComplete="email"
                 autoFocus
               />
             </FormControl>
@@ -88,7 +88,6 @@ class Login extends Component {
                 type="password"
                 id="password"
                 onChange={e => this.setPassword(e)}
-                autoComplete="current-password"
               />
               <FormHelperText error={true}>{errorMessage}</FormHelperText>
             </FormControl>
@@ -110,9 +109,9 @@ class Login extends Component {
             </div>
             <div className={classes.secondaryTextContainer}>
               <Typography variant="body2" className={classes.secondaryText}>
-                <a href="/" className={classes.linkText}>
-                  Create New Account
-                </a>
+                <Link to="/signup" className={classes.linkText}>
+                  Don't have an account? Sign up!
+                </Link>
               </Typography>
             </div>
           </form>
