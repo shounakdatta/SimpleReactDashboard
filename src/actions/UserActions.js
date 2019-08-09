@@ -3,7 +3,8 @@ import {
   ON_EXIT,
   ON_VALIDATE,
   ON_CREATE_USER,
-  ON_UPDATE_USER
+  ON_UPDATE_USER,
+  ON_PASSWORD_RESET
 } from "../constants/ActionTypes";
 import * as UserService from "../services/UserService";
 
@@ -81,6 +82,19 @@ export const update = userObj => dispatch => {
           payload: response.user
         });
         resolve(response);
+      })
+      .catch(error => reject(error));
+  });
+};
+
+export const resetPassword = email => dispatch => {
+  return new Promise((resolve, reject) => {
+    UserService.resetUserPassword(email)
+      .then(() => {
+        dispatch({
+          type: ON_PASSWORD_RESET
+        });
+        resolve({ success: true, message: "A password reset email was sent." });
       })
       .catch(error => reject(error));
   });

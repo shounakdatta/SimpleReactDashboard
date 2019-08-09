@@ -43,3 +43,7 @@ export function updateUser(userObj) {
 export function getUser() {
   return firebase.auth().currentUser;
 }
+
+export function resetUserPassword(email) {
+  return firebase.auth().sendPasswordResetEmail(email);
+}

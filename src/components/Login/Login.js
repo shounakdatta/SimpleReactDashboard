@@ -19,15 +19,15 @@ class Login extends Component {
     super();
 
     this.state = {
-      username: null,
+      email: null,
       password: null,
       errorMessage: null,
       login: false
     };
   }
 
-  setUsername(e) {
-    this.setState({ username: e.target.value });
+  setEmail(e) {
+    this.setState({ email: e.target.value });
   }
 
   setPassword(e) {
@@ -36,20 +36,18 @@ class Login extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    const { username, password } = this.state;
-    this.props
-      .onLogin({ email: username, password })
-      .then(({ user, message }) => {
-        if (user) {
-          this.setState({
-            login: true
-          });
-        } else {
-          this.setState({
-            errorMessage: message
-          });
-        }
-      });
+    const { email, password } = this.state;
+    this.props.onLogin({ email, password }).then(({ user, message }) => {
+      if (user) {
+        this.setState({
+          login: true
+        });
+      } else {
+        this.setState({
+          errorMessage: message
+        });
+      }
+    });
   }
 
   render() {
@@ -73,11 +71,11 @@ class Login extends Component {
             onSubmit={this.handleSubmit.bind(this)}
           >
             <FormControl margin="normal" required fullWidth>
-              <InputLabel htmlFor="email">Username</InputLabel>
+              <InputLabel htmlFor="email">Email</InputLabel>
               <Input
                 id="email"
                 name="email"
-                onChange={e => this.setUsername(e)}
+                onChange={e => this.setEmail(e)}
                 autoFocus
               />
             </FormControl>
@@ -102,9 +100,9 @@ class Login extends Component {
             </Button>
             <div className={classes.secondaryTextContainer}>
               <Typography variant="body2" className={classes.secondaryText}>
-                <a href="/" className={classes.linkText}>
-                  Forgot Username/Password
-                </a>
+                <Link to="/forgotpassword" className={classes.linkText}>
+                  Forgot password
+                </Link>
               </Typography>
             </div>
             <div className={classes.secondaryTextContainer}>
