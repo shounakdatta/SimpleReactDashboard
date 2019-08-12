@@ -4,3 +4,6 @@ export { default as SignUpScreen } from "./SignUpScreen/SignUpScreen";
 export {
   default as ForgotPasswordScreen
 } from "./ForgotPasswordScreen/ForgotPasswordScreen";
+export {
+  default as ResetPasswordScreen
+} from "./ResetPasswordScreen/ResetPasswordScreen";

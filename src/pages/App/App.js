@@ -10,6 +10,7 @@ import {
   SignUpScreen,
   ForgotPasswordScreen
 } from "../../pages";
+import ResetPasswordScreen from "../ResetPasswordScreen/ResetPasswordScreen";
 
 class App extends Component {
   constructor(props) {
@@ -30,6 +31,11 @@ class App extends Component {
             exact
             path={ROUTES.FORGOTPASSWORD}
             component={ForgotPasswordScreen}
+          />
+          <Route
+            exact
+            path={ROUTES.RESETPASSWORD}
+            component={ResetPasswordScreen}
           />
           <PrivateRoute exact path={ROUTES.HOME} component={HomeScreen} />
         </Switch>

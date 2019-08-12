@@ -44,6 +44,14 @@ export function getUser() {
   return firebase.auth().currentUser;
 }
 
-export function resetUserPassword(email) {
-  return firebase.auth().sendPasswordResetEmail(email);
+export function forgotUserPassword(email) {
+  return firebase.auth().sendPasswordResetEmail(email, {
+    url: "http://localhost:3000/",
+    handleCodeInApp: true
+  });
+}
+
+export function resetUserPassword(verificationObj) {
+  const { code, newPassword } = verificationObj;
+  return firebase.auth().confirmPasswordReset(code, newPassword);
 }

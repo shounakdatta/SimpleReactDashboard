@@ -4,6 +4,7 @@ import {
   ON_VALIDATE,
   ON_CREATE_USER,
   ON_UPDATE_USER,
+  ON_FORGOT_PASSWORD,
   ON_PASSWORD_RESET
 } from "../constants/ActionTypes";
 import * as UserService from "../services/UserService";
@@ -87,14 +88,27 @@ export const update = userObj => dispatch => {
   });
 };
 
-export const resetPassword = email => dispatch => {
+export const forgotPassword = email => dispatch => {
   return new Promise((resolve, reject) => {
-    UserService.resetUserPassword(email)
+    UserService.forgotUserPassword(email)
+      .then(() => {
+        dispatch({
+          type: ON_FORGOT_PASSWORD
+        });
+        resolve({ success: true, message: "A password reset email was sent." });
+      })
+      .catch(error => reject(error));
+  });
+};
+
+export const resetPassword = verificationObj => dispatch => {
+  return new Promise((resolve, reject) => {
+    UserService.resetUserPassword(verificationObj)
       .then(() => {
         dispatch({
           type: ON_PASSWORD_RESET
         });
-        resolve({ success: true, message: "A password reset email was sent." });
+        resolve({ success: true, message: "Your password has been reset." });
       })
       .catch(error => reject(error));
   });
