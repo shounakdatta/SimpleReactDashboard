@@ -7,7 +7,12 @@ Want to make a React App with a dashboard but don't want the hassle to set up lo
 1. Fork this repo.
 2. `cd SimpleReactDashboard`
 3. `yarn` or `npm i`
-4. Setup a Firebase Web App at `https://console.firebase.google.com/`
-5. Go to `src/config/Fire.js` in your app and replace the Firebase config generated in the Firebase console.
-4. `yarn start` or `npm run start`
-5. Go to http://localhost:3000
+
+## To view screens without Firebase setup
+1. `yarn storybook`
+
+## For full functionality
+1. Setup a Firebase Web App at `https://console.firebase.google.com/`
+2. Go to `src/config/Fire.js` in your app and replace the Firebase config generated in the Firebase console.
+3. `yarn start` or `npm run start`
+4. Go to http://localhost:3000
